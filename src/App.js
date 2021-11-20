@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Button from './components/Button';
 import Greet from './components/Greet';
+import Employee from './components/Employee';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
 		
 		<Greet/>
 		<Button/>
+		<Employee/>
         <a
           className="App-link"
           href="https://reactjs.org"
