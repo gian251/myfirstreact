@@ -1,36 +1,19 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import {useEffect,useState} from "react";
+import {useNavigate,useParams} from "react-router";
 import employeeService from "../services/employeeService";
 
 
 const AddEmployee = () => {
+
     const [name, setName] = useState("");
     const [location, setLocation] = useState("");
     const [department, setDepartment] = useState("");
-    const [error, setError] = useState("");
     const navigate = useNavigate();
-    const {employeeId} = useParams();
+    const{employeeid} = useParams();
+    const[error, setError] = useState("")
 
-    useEffect(() => {
-        if (employeeId) {
-            employeeService.getEmployee(employeeId)
-                .then(
-                    employee => {
-                        setName(employee.data.name);
-                        setLocation(employee.data.location);
-                        setDepartment(employee.data.department);
-                    }
-                )
 
-                .catch(
-                    error => {
-                        console.error("ERROR", error);
-                    }
-                );
-        }
-    }, []);
-
-    const saveEmployee = (e) => {
+   const saveEmployee = (e) => {
         e.preventDefault();
 
         if (name && location && department) {
@@ -41,7 +24,7 @@ const AddEmployee = () => {
                 employeeService.putEmployee(employee)
                     .then(
                         response => {
-                            console.log('Employee record updated.', response.data);
+                            console.log('Employee record updated', response.data);
                             navigate('/myfirstreact/employees');
                         }
                     )
@@ -58,7 +41,7 @@ const AddEmployee = () => {
                 employeeService.postEmployee(employee)
                     .then(
                         response => {
-                            console.log('Employee record added.', response.data);
+                            console.log('Employee record added', response.data);
                             navigate('/myfirstreact/employees');
                         }
                     )
@@ -77,70 +60,81 @@ const AddEmployee = () => {
         }
     };
 
-
+    useEffect(
+        () =>{
+            if(employeeid){
+                employeeService.getEmployee(employeeid) 
+                .then(
+                    employee =>{
+                        setName(employee.data.name);
+                        setLocation(employee.data.location);
+                        setDepartment(employee.data.department);
+                    }
+                )
+                .catch(
+                    error =>{
+                        console.error("ERROR", error)
+                    }
+                )
+            }
+        }
+    )
 
     return (
-        <div className="container">
-            <h3>Add employee</h3>
+        <div className = "container">
+            <h3>Add Employee</h3>
             <form>
                 <div className="mb-3">
-                    <label for="nameField" className="form-label">Name</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        value={name}
-                        id="nameField"
-                        placeholder="Input name"
-                        onChange={
-                            (e) => {
-                                setName(e.target.value);
-                            }
+                    <label for="name" className="form-label">Name:</label>
+                    <input 
+                    type="text" 
+                    className="form-control" 
+                    value={name}
+                    id="name"
+                    placeholder="Add employee name..."
+                    onChange={
+                        (e) => { 
+                            setName(e.target.value)
                         }
+                    }
                     />
                 </div>
-
                 <div className="mb-3">
-                    <label for="locationField" className="form-label">Location</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        value={location}
-                        id="locationField"
-                        placeholder="Input location"
-                        onChange={
-                            (e) => {
-                                setLocation(e.target.value);
-                            }
+                    <label for="location" className="form-label">Location:</label>
+                    <input 
+                    type="text" 
+                    className="form-control" 
+                    value={location}
+                    id="location"
+                    placeholder="Add employee location..."
+                    onChange={
+                        (e) => {
+                            setLocation(e.target.value)
                         }
-                    />
+                    }/>
                 </div>
-
                 <div className="mb-3">
-                    <label for="departmentField" className="form-label">Department</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        value={department}
-                        id="departmentField"
-                        placeholder="Input department"
-                        onChange={
-                            (e) => {
-                                setDepartment(e.target.value);
-                            }
+                    <label for="department" className="form-label">Department:</label>
+                    <input 
+                    type="text" 
+                    className="form-control" 
+                    value={department}
+                    id="department"
+                    placeholder="Add employee department..."
+                    onChange={
+                        (e) => {
+                            setDepartment(e.target.value)
                         }
-                    />
+                    }/>
                 </div>
-                <button
-                    type="submit"
-                    className="btn btn-primary"
-                    id="SaveField"
-                    onClick={(e) => saveEmployee(e)}>Save
-                </button>
-
-                <p id="error">{error && <p className="error">{error}</p>}</p>
+                
+                <button type="submit" className="btn btn-primary" onClick={(e) => saveEmployee(e)}>Save</button>
+                
+                <p id="error">
+                    {error && <p className="error">{error}</p>}  
+                </p>
             </form>
         </div>
-    );
-};
-
+    )
+}
 export default AddEmployee;

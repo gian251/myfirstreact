@@ -1,80 +1,86 @@
-import {useEffect, useState} from "react"
+import {Button} from "bootstrap"
+import {useState,useEffect} from "react"
 import {Link} from "react-router-dom"
 import employeeService from "../services/employeeService"
 
+
+
 const Employee = () =>{
-    
-    const[employees, setEmployees] = useState([]);
-    
-    useEffect(() =>{
-        refreshEmployeeTable(); 
-    })     
-    
-    const refreshEmployeeTable = () => {
-        employeeService.getEmployees()
-        .then(
-            response =>{
-                setEmployees(response.data);
-            }
-        )
-    
-        .catch(
-            err =>{
-                console.log("ERROR");
-            }
-        );
-    };
-    
-    const deleteEmployee = (employeeId) =>{
-        employeeService.deleteEmployee(employeeId)
-        .then(
-            response =>{
-                console.log("Employee record deleted");
-                refreshEmployeeTable();
-            }
-        )
-        
-        .catch(
-            error =>{
-                console.error("ERROR", error);
-            }
-        );
-    };
-    
+    const[employees, setEmployees] = useState([])
+
+    useEffect(
+        () => {
+            refreshEmployee();
+        }
+    )
+
+    const refreshEmployee = () =>{
+        employeeService.getEmployees() 
+            .then(
+                response =>{
+                    setEmployees(response.data)
+                }
+            )
+            .catch(
+                console.log("Hello")
+            )
+    }
+
+    const deleteEmployee = (employeeid) => {
+        let YN = window.confirm("Are you sure you want to delete this record?");
+
+        if(YN){
+            employeeService.deleteEmployee(employeeid)
+            .then(
+                response =>{
+                    console.log("Employee record deleted.")
+                    refreshEmployee();
+                }
+            )
+            .catch(
+                error =>{
+                    console.error("ERROR", error);
+                }
+            )
+        }
+    }
+
     return(
-            <div id="employee">
-            <h3>List of Employees</h3>
-            <div>
-                <table border="1.5">
+        <div>
+            <h1>List of Employees</h1>
+            <div className="container">
+                <table className="table table-hover table-dark table-striped">
+                    <thead>
+                        <tr>
                             <td>Name</td>
                             <td>Location</td>
                             <td>Department</td>
-                            <td>Actions</td>
-                    {
-                        employees.map(
-                            employee => (
-                                <tr key = {employee.employeeId}>
-                                    <td>{employee.name}</td>
-                                    <td>{employee.location}</td>
-                                    <td>{employee.department}</td>
-                                    <td>
-                                        <div className="d-grid gap-2 d-md-flex justify-content-center">
-                                            <Link 
-                                            className="btn btn-outline-info" 
-                                            to={`/myfirstreact/employees/edit/${employee.employeeId}`}>Update</Link>
-                                            
-                                            <div 
-                                            className="btn btn-outline-warning" onClick={() =>deleteEmployee(employee.employeeId)}>Delete</div>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            employees.map(
+                                employee => (
+                                    <tr className="table-light"> 
+                                        <td align="left">{employee.name}</td>
+                                        <td align="left">{employee.location}</td>
+                                        <td align="left">{employee.department}</td>
+                                        <td>
+                                            <div className="d-grid gap-2 d-md-flex">
+                                            <Link className="btn btn-primary" to={`/myfirstreact/employees/edit/${employee.employeeId}`}>Update</Link>
+                                            <button className="btn btn-danger" onClick={()=>deleteEmployee(employee.employeeid)}>Delete</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )
                             )
-                        )
-                    }
+                        }
+                    </tbody>
                 </table>
             </div>
         </div>
-    );
-};
+    )
+}
 
 export default Employee
