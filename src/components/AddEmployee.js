@@ -19,8 +19,8 @@ const AddEmployee = () => {
         if (name && location && department) {
             setError('');
 
-            if (employeeId) {
-                const employee = {employeeId, name, location, department};
+            if (employeeid) {
+                const employee = {employeeid, name, location, department};
                 employeeService.putEmployee(employee)
                     .then(
                         response => {
