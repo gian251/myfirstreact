@@ -4,7 +4,6 @@ import employeeService from "../services/employeeService";
 
 
 const AddEmployee = () => {
-
     const [name, setName] = useState("");
     const [location, setLocation] = useState("");
     const [department, setDepartment] = useState("");
@@ -12,58 +11,57 @@ const AddEmployee = () => {
     const{employeeid} = useParams();
     const[error, setError] = useState("")
 
-
-   const saveEmployee = (e) => {
+    const saveEmployee = (e) =>{
         e.preventDefault();
 
-        if (name && location && department) {
-            setError('');
+        if(name && location && department){
+            setError("");
 
-            if (employeeid) {
+            if(employeeid){
                 const employee = {employeeid, name, location, department};
                 employeeService.putEmployee(employee)
-                    .then(
-                        response => {
-                            console.log('Employee record updated', response.data);
-                            navigate('/myfirstreact/employees');
-                        }
-                    )
 
-                    .catch(
-                        error => {
-                            console.error('ERROR', error);
-                        }
-                    );
+                .then(
+                    response =>{
+                        console.log("Employee record updated.", response.data)
+                        navigate("/myfirstreact/employees");
+                    }
+                )
+                .catch(
+                    error => {
+                        console.error("ERROR");
+                    }
+                )
             }
 
-            else {
+            else{
+
                 const employee = {name, location, department};
                 employeeService.postEmployee(employee)
-                    .then(
-                        response => {
-                            console.log('Employee record added', response.data);
-                            navigate('/myfirstreact/employees');
-                        }
-                    )
 
-                    .catch(
-                        error => {
-                            console.log('ERROR', error);
-                        }
-                    );
+                .then(
+                    response =>{
+                        console.log("Employee record added.", response.data)
+                        navigate("/myfirstreact/employees");
+                    }
+                )
+                .catch(
+                    error => {
+                        console.error("ERROR");
+                    }
+                )
             }
         }
-
-        else {
-            console.error('Please fill all field boxes');
-            setError('Please fill all field boxes');
+        else{
+            console.error("Please fill all field boxes.")
+            setError("Please fill all field boxes.")
         }
-    };
+    }
 
     useEffect(
         () =>{
             if(employeeid){
-                employeeService.getEmployee(employeeid) 
+                employeeService.getEmployee(employeeid)
                 .then(
                     employee =>{
                         setName(employee.data.name);
@@ -91,7 +89,7 @@ const AddEmployee = () => {
                     className="form-control" 
                     value={name}
                     id="name"
-                    placeholder="Add employee name..."
+                    placeholder="Add employee's name..."
                     onChange={
                         (e) => { 
                             setName(e.target.value)
@@ -106,7 +104,7 @@ const AddEmployee = () => {
                     className="form-control" 
                     value={location}
                     id="location"
-                    placeholder="Add employee location..."
+                    placeholder="Add employee's address..."
                     onChange={
                         (e) => {
                             setLocation(e.target.value)
@@ -120,7 +118,7 @@ const AddEmployee = () => {
                     className="form-control" 
                     value={department}
                     id="department"
-                    placeholder="Add employee department..."
+                    placeholder="Add employee's department..."
                     onChange={
                         (e) => {
                             setDepartment(e.target.value)
