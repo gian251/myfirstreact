@@ -68,7 +68,7 @@ const Employee = () =>{
                                         <td align="left">{employee.department}</td>
                                         <td>
                                             <div className="d-grid gap-2 d-md-flex">
-                                            <Link className="btn btn-primary" to={`/edit/${employee.employeeid}`}>Update</Link>
+                                            <Link className="btn btn-primary" to={`/myfirstreact/employees/edit/${employee.employeeid}`}>Update</Link>
                                             <button className="btn btn-danger" onClick={()=>deleteEmployee(employee.employeeid)}>Delete</button>
                                             </div>
                                         </td>
