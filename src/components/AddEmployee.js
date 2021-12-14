@@ -74,7 +74,7 @@ const AddEmployee = () => {
                     }
                 )
             }
-        }
+        }, []
     )
 
     return (
