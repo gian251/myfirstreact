@@ -26,15 +26,14 @@ const Employee = () =>{
             )
     }
 
-    const deleteEmployee = (employeeid) => {
+    const deleteEmployee = (employeeId) => {
         let YN = window.confirm("Are you sure you want to delete this record?");
 
         if(YN){
-            employeeService.deleteEmployee(employeeid)
+            employeeService.deleteEmployee(employeeId)
             .then(
                 response =>{
                     console.log("Employee record deleted.")
-                    refreshEmployee();
                 }
             )
             .catch(
@@ -68,8 +67,8 @@ const Employee = () =>{
                                         <td align="left">{employee.department}</td>
                                         <td>
                                             <div className="d-grid gap-2 d-md-flex">
-                                            <Link className="btn btn-primary" to={`/myfirstreact/edit/${employee.employeeid}`}>Update</Link>
-                                            <button className="btn btn-danger" onClick={()=>deleteEmployee(employee.employeeid)}>Delete</button>
+                                            <Link className="btn btn-primary" to={`/myfirstreact/edit/${employee.employeeId}`}>Update</Link>
+                                            <button className="btn btn-danger" onClick={()=>deleteEmployee(employee.employeeId)}>Delete</button>
                                             </div>
                                         </td>
                                     </tr>

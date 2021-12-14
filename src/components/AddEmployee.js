@@ -8,60 +8,59 @@ const AddEmployee = () => {
     const [location, setLocation] = useState("");
     const [department, setDepartment] = useState("");
     const navigate = useNavigate();
-    const{employeeid} = useParams();
+    const{employeeId} = useParams();
     const[error, setError] = useState("")
 
-    const saveEmployee = (e) =>{
+  const saveEmployee = (e) => {
         e.preventDefault();
 
-        if(name && location && department){
-            setError("");
+        if (name && location && department) {
+            setError(''); 
 
-            if(employeeid){
-                const employee = {employeeid, name, location, department};
-                employeeService.putEmployee(employee)
-
-                .then(
-                    response =>{
-                        console.log("Employee record updated.", response.data)
-                        navigate("/myfirstreact/employees");
-                    }
-                )
-                .catch(
-                    error => {
-                        console.error("ERROR");
-                    }
-                )
+            if (employeeId) {
+                const employee = { employeeId, name, location, department };
+                employeeService.putEmployee(employee) // promise
+                    .then(
+                        response => {
+                            console.log('Employee record updated', response.data);
+                            navigate('/myfirstreact/employees');
+                        }
+                    )
+                    .catch(
+                        err => {
+                            console.error('ERROR', err)
+                        }
+                    )
             }
 
-            else{
-
-                const employee = {name, location, department};
-                employeeService.postEmployee(employee)
-
-                .then(
-                    response =>{
-                        console.log("Employee record added.", response.data)
-                        navigate("/myfirstreact/employees");
-                    }
-                )
-                .catch(
-                    error => {
-                        console.error("ERROR");
-                    }
-                )
+            else {
+                const employee = { name, location, department };
+                employeeService.postEmployee(employee) // promise
+                    .then(
+                        response => {
+                            console.log('Employee record added', response.data)
+                            navigate('/myfirstreact/employees')
+                        }
+                    )
+                    .catch(
+                        err => {
+                            console.error('ERROR', err)
+                        }
+                    )
             }
         }
-        else{
-            console.error("Please fill all field boxes.")
-            setError("Please fill all field boxes.")
+
+
+        else {
+            console.error('Please fill up all field boxes.');
+            setError('Please fill up all field boxes.');
         }
     }
 
     useEffect(
         () =>{
-            if(employeeid){
-                employeeService.getEmployee(employeeid)
+            if(employeeId){
+                employeeService.getEmployee(employeeId)
                 .then(
                     employee =>{
                         setName(employee.data.name);
