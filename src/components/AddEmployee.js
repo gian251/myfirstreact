@@ -81,7 +81,7 @@ const AddEmployee = () => {
         <div className = "container">
             <h3>Add Employee</h3>
             <form>
-                <div className="mb-3">
+                <div className="mb-3" align="left">
                     <label for="name" className="form-label">Name:</label>
                     <input 
                     type="text" 
@@ -96,7 +96,7 @@ const AddEmployee = () => {
                     }
                     />
                 </div>
-                <div className="mb-3">
+                <div className="mb-3" align="left">
                     <label for="location" className="form-label">Location:</label>
                     <input 
                     type="text" 
@@ -110,7 +110,7 @@ const AddEmployee = () => {
                         }
                     }/>
                 </div>
-                <div className="mb-3">
+                <div className="mb-3" align="left">
                     <label for="department" className="form-label">Department:</label>
                     <input 
                     type="text" 

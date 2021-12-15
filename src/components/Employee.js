@@ -1,4 +1,3 @@
-import {Button} from "bootstrap"
 import {useState,useEffect} from "react"
 import {Link} from "react-router-dom"
 import employeeService from "../services/employeeService"
@@ -46,7 +45,7 @@ const Employee = () =>{
 
     return(
         <div>
-            <h1>List of Employees</h1>
+            <h2>List of Employees</h2>
             <div className="container">
                 <table className="table table-hover table-dark table-striped">
                     <thead>
@@ -62,14 +61,12 @@ const Employee = () =>{
                             employees.map(
                                 employee => (
                                     <tr className="table-light"> 
-                                        <td align="left">{employee.name}</td>
-                                        <td align="left">{employee.location}</td>
-                                        <td align="left">{employee.department}</td>
-                                        <td>
-                                            <div className="d-grid gap-2 d-md-flex">
+                                        <td>{employee.name}</td>
+                                        <td>{employee.location}</td>
+                                        <td>{employee.department}</td>
+                                        <td id="actions">
                                             <Link className="btn btn-primary" to={`/myfirstreact/employees/edit/${employee.employeeId}`}>Update</Link>
                                             <button className="btn btn-danger" onClick={()=>deleteEmployee(employee.employeeId)}>Delete</button>
-                                            </div>
                                         </td>
                                     </tr>
                                 )
