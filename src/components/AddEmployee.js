@@ -19,7 +19,7 @@ const AddEmployee = () => {
 
             if (employeeId) {
                 const employee = { employeeId, name, location, department };
-                employeeService.putEmployee(employee) // promise
+                employeeService.putEmployee(employee) 
                     .then(
                         response => {
                             console.log('Employee record updated', response.data);
@@ -35,7 +35,7 @@ const AddEmployee = () => {
 
             else {
                 const employee = { name, location, department };
-                employeeService.postEmployee(employee) // promise
+                employeeService.postEmployee(employee)
                     .then(
                         response => {
                             console.log('Employee record added', response.data)

@@ -4,4 +4,4 @@ const getHello = () => {
     return httpclient.get('/hello');
 }
 
-export default {getHello}
+export default {getHello};
