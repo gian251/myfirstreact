@@ -3,7 +3,7 @@ const NavBar = () => {
         <div>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/">ICS2608</a>
+                    <a class="navbar-brand" href="/myfirstreact">ICS2608</a>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
                             <a class="nav-link" href="/myfirstreact">Home</a>
